@@ -1,5 +1,10 @@
 use ferris_says::say;
 use std::io::{stdout, BufWriter};
+extern crate libc;
+
+extern {
+    fn list_file(input: libc::c_int) -> libc::c_int;
+}
 
 fn main() {
     println!("Hello, world!");
@@ -10,4 +15,8 @@ fn main() {
 
     let mut writer = BufWriter::new(stdout.lock());
     say(message.as_bytes(), width, &mut writer).unwrap();
+
+    let input = 4;
+    let output = unsafe { list_file(input) };
+    println!("{} * 2 = {}", input, output);
 }
