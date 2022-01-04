@@ -2,6 +2,7 @@ use std::io;
 use rand::Rng;
 use ferris_says::say;
 use std::cmp::Ordering;
+use std::cmp::Ordering::Equal;
 use std::io::{stdout, BufWriter, Read};
 use libc::{printf, pselect};
 
@@ -77,13 +78,68 @@ fn run_tuple() {
     println!("{} {} {}", five_hundred, six_point_four, one);
 }
 
-fn run_array() {
+fn run_array(x: i32) {
     let a = [1, 2, 3, 4, 5];
     let first = a[0];
     let second = a[1];
     let index = 10;
     //let element = a[index]; // 将执行出错
-    //println!("The value of element is: {}", element);
+    //println!("The value of element is: {}", index);
+    println!("{} {} {}", first, second, index);
+    let y = {
+        let x = 3;
+        x + 1
+    };
+    println!("{}", y);
+}
+
+fn plus_one(x: i32) -> i32 {
+    x + 1
+}
+
+fn run_five() -> i32 {
+    5
+}
+
+fn run_if(number: i32) {
+    let new_number = if number > 0 { 7 } else { 9 };
+    if number < 5 {
+        println!("condition was true {}", new_number);
+    } else {
+        println!("condition was false {}", new_number);
+    }
+}
+
+fn run_loop() {
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+    println!("T result is {}", result);
+}
+
+fn run_iter() {
+    let a = [10, 20, 30, 40, 50];
+    let mut index = 0;
+
+    while index < 5 {
+        println!("the value is: {}", a[index]);
+
+        index = index + 1;
+    }
+
+    for element in a.iter() {
+        println!("the value is: {}", element);
+    }
+
+    for number in (1..4).rev() {
+        println!("{}", number);
+    }
+    println!("LIFTOFF!!!");
 }
 
 fn main() {
@@ -91,5 +147,10 @@ fn main() {
 
     // run_say();
     //guess_number();
-    run_tuple();
+    //run_tuple();
+    //run_array(7);
+    //println!("{} {}", run_five(), plus_one(1));
+    //run_if(8);
+    //run_loop();
+    run_iter();
 }
