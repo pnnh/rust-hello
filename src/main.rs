@@ -1,6 +1,7 @@
 mod front_of_house;
 mod guess;
 pub mod run;
+mod string;
 
 use std::io;
 use rand::Rng;
@@ -49,6 +50,8 @@ fn main() {
     // println!("{} {}", run_mod::run_five(), run_mod::plus_one(1));
     // run_mod::run_if(8);
     // run_mod::run_loop();
-    run::run_iter();
+    //run::run_iter();
     // hosting::add_to_waitlist();
+
+    string::run_main();
 }
