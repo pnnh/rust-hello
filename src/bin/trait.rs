@@ -1,5 +1,62 @@
+use std::fmt::Debug;
+use std::fmt::Display;
+
 pub trait Summary {
     fn summarize(&self) -> String;
+
+    fn summarize2(&self) -> String {
+        String::from("(Read more from {}...)", self.summarize())
+    }
+}
+
+struct Pair<T> {
+    x: T,
+    y: T,
+}
+impl Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self { x, y }
+    }
+}
+impl<T: Display + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest member is y = {}", self.y);
+        }
+    }
+}
+
+pub fn notify(item: impl Summary) {
+    println!("Breaking news! {}", item.summarize());
+}
+
+pub fn notify2<T: Summary>(item: T) {
+    println!("Breaking news! {}", item.summarize());
+}
+
+pub fn notify3(item: impl Summary + Display) {}
+
+pub fn notify4<T: Summary + Display>(item: T) {}
+
+fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {
+    0
+}
+fn some_function2<T, U>(t: T, u: U) -> i32
+where
+    T: Display + Clone,
+    U: Clone + Debug,
+{
+    0
+}
+fn returns_summarizable() -> impl Summary {
+    Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+        reply: false,
+        retweet: false,
+    }
 }
 
 pub struct NewsArticle {

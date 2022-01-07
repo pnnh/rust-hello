@@ -1,9 +1,9 @@
-fn largest<T>(list: &[T]) -> T {
+fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     let mut largest = list[0];
 
     for &item in list.iter() {
         if item > largest {
-            largest = item.clone();
+            largest = item;
         }
     }
     largest
@@ -25,7 +25,7 @@ struct Point<T, U> {
     y: U,
 }
 
-impl<T> Point<T, U> {
+impl<T, U> Point<T, U> {
     fn x(&self) -> &T {
         &self.x
     }
@@ -59,7 +59,7 @@ fn main() {
     let interger = Point { x: 5, y: 10 };
     let float = Point { x: 1.0, y: 4.0 };
     let integer_and_float = Point { x: 5, y: 4.0 };
-    println!("p.x = {}", p.x());
+    println!("p.x = {}", integer_and_float.x());
 
     let p1 = Point { x: 5, y: 10.4 };
     let p2 = Point { x: "Hello", y: 'c' };
@@ -69,4 +69,9 @@ fn main() {
 
     let integer = Option_i32::Some(5);
     let float = Option_f64::Some(5.0);
+
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
+    let result = longest(string1.as_str(), string2);
+    println!("The longest string is {}", result);
 }
